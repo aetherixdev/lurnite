@@ -41,8 +41,8 @@ export default function Login() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
-      <div className="bg-white p-12 min-w-[40%] rounded-2xl shadow-md space-y-2">
+    <div className="flex flex-col items-center justify-center h-screen bg-linear-135 from-[#F8FAFC] via-[#EEF2FF] to-[#ECFEFF]">
+      <div className="bg-white/60 backdrop-blur-md p-12 min-w-[40%] rounded-2xl shadow-lg space-y-2">
         <h1 className="text-2xl font-bold text-center">Login</h1>
         <Button className="w-full" onClick={handleLogin}>Login with Google</Button>
       </div>

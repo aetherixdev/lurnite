@@ -9,7 +9,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
-  --color-primary: #1E40AF;
+  --color-primary: oklch(50% 0.134 242.749);
   --color-secondary: #F59E0B;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -58,7 +58,7 @@ body {
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  --primary: oklch(58.8% 0.158 241.966);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
@@ -84,6 +84,130 @@ body {
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+
+  /* FullCalendar Custom Colors */
+  /* Borders & Backgrounds */
+  --fc-border-color: #e2e8f0;       /* Tailwind slate-200 */
+  --fc-page-bg-color: #ffffff;
+  --fc-neutral-bg-color: #f8fafc;   /* Tailwind slate-50 */
+  
+  /* Buttons (Apply your app's primary color) */
+  --fc-button-bg-color: #4f46e5;    /* Tailwind indigo-600 */
+  --fc-button-border-color: #4f46e5;
+  --fc-button-hover-bg-color: #4338ca;
+  --fc-button-active-bg-color: #3730a3;
+  
+  /* Events */
+  --fc-event-bg-color: #6366f1;
+  --fc-event-border-color: #6366f1;
+  --fc-today-bg-color: #eff6ff;     /* Tailwind blue-50 */
+}
+
+.fc {
+  font-family: inherit !important;
+  overflow: hidden;
+  background-color: var(--fc-page-bg-color);
+}
+
+.fc-theme-standard .fc-scrollgrid,
+.fc-theme-standard .fc-scrollgrid-section,
+.fc-theme-standard .fc-scrollgrid-sync-table {
+  /* Remove container-level borders; keep only cell borders + .fc outline */
+  border: 0 !important;
+}
+
+.fc-theme-standard td,
+.fc-theme-standard th {
+  /* Ensure all internal grid lines use the same color/thickness */
+  border-color: var(--fc-border-color);
+}
+
+/* Avoid double borders by removing outermost cell borders;
+   rely on the rounded .fc outline for the outside edge. */
+.fc-theme-standard .fc-scrollgrid thead th {
+  /* Strip any header outer borders; rely on .fc outline instead */
+  border-top-width: 0;
+  border-bottom-width: 0;
+}
+
+.fc-theme-standard .fc-scrollgrid tbody tr:first-child td {
+  /* First row of the grid draws the separation line under the header */
+  border-top-width: 1px;
+}
+
+.fc-theme-standard .fc-scrollgrid tbody tr:last-child td {
+  border-bottom-width: 0;
+}
+
+.fc-theme-standard .fc-scrollgrid td:first-child,
+.fc-theme-standard .fc-scrollgrid th:first-child {
+  border-left-width: 0;
+}
+
+.fc-theme-standard .fc-scrollgrid td:last-child,
+.fc-theme-standard .fc-scrollgrid th:last-child {
+  border-right-width: 0;
+}
+
+/* Subtle, slow today highlight when clicking "Today" */
+.calendar-today-soft-highlight .fc-theme-standard td.fc-day-today,
+.calendar-today-soft-highlight
+  .fc-theme-standard
+  .fc-timegrid-col.fc-day-today {
+  animation: fc-today-soft-pulse 0.9s ease-out;
+}
+
+@keyframes fc-today-soft-pulse {
+  0% {
+    background-color: #dbeafe; /* slight bump from default today color */
+  }
+  100% {
+    background-color: var(--fc-today-bg-color);
+  }
+}
+
+/* Navigation animations for month/week changes */
+.calendar-slide-next {
+  animation: fc-slide-next 0.22s ease-out;
+}
+
+.calendar-slide-prev {
+  animation: fc-slide-prev 0.22s ease-out;
+}
+
+.calendar-fade {
+  animation: fc-fade 0.22s ease-out;
+}
+
+@keyframes fc-slide-next {
+  0% {
+    opacity: 0;
+    transform: translateX(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fc-slide-prev {
+  0% {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fc-fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .dark {

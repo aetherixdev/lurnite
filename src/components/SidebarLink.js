@@ -10,11 +10,11 @@ export default function SidebarLink({ href, label, children }) {
 
   return (
     <Link href={href}>
-        <div className={`p-2 hover:bg-gray-200 dark:hover:bg-gray-800 active:bg-gray-300 dark:active:bg-gray-700 text-gray-700 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-200 transition-all duration-200 rounded-lg flex items-center space-x-6 ${activeStyle}`}>
+        <div className={`p-2 hover:bg-gray-200 dark:hover:bg-gray-800 active:bg-gray-300 dark:active:bg-gray-700 text-gray-700 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-200 transition-all duration-200 rounded-lg flex items-center justify-center lg:justify-start space-x-6 ${activeStyle}`}>
             <div className="h-full max-w-2">
                 {children}
             </div>
-            <div className="">
+            <div className="hidden lg:block">
                <p>{label}</p>
             </div>
         </div>

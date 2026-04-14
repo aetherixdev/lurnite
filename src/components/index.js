@@ -2,3 +2,8 @@ export { default as Button } from './Button';
 export { default as Sidebar } from './Sidebar';
 export { default as TextField } from './TextField';
 export { default as PageWithSidebar } from './PageWithSidebar';
+export { default as CalendarHeader } from './calendar/Header';
+export { default as CalendarDetails } from './calendar/Details';
+export { default as NewEvent } from './calendar/NewEvent';
+export { default as PopupManager } from './calendar/PopupManager';
+export { default as EventPopup } from './calendar/EventPopup';

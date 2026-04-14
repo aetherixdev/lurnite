@@ -1,6 +1,6 @@
 "use client";
 
-import { Sidebar, PageWithSidebar } from "@/components";
+import { PageWithSidebar } from "@/components";
 import { useAuth } from "../contexts/AuthContext";
 import { Button } from "@/components";
 
