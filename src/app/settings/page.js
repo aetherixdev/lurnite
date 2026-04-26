@@ -37,7 +37,13 @@ export default function SettingsPage() {
       }
  };
 
-  if (loading) return <div className="flex"><Sidebar /><div>Loading...</div></div>;
+  if (loading) {
+    return (
+      <PageWithSidebar>
+        <div className="p-4 text-sm text-muted-foreground">Loading...</div>
+      </PageWithSidebar>
+    );
+  }
 
   return (
       <PageWithSidebar>

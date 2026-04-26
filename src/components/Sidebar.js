@@ -1,23 +1,92 @@
-import SidebarLink from "./SidebarLink";
-import HomeIcon from '../icons/home.svg';
-import CalendarIcon from '../icons/calendar.svg';
-import SettingsIcon from '../icons/settings.svg';
-import { CircleCheck as TasksIcon } from 'lucide-react'
+"use client";
 
-export default function Sidebar() {
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarSeparator,
+  SidebarTrigger,
+} from "@/components/ui/sidebar";
+import { cn } from "@/lib/utils";
+import {
+  CalendarDays,
+  CheckSquare,
+  Home,
+  Settings,
+} from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+const navItems = [
+  { title: "Home", href: "/", icon: Home },
+  { title: "Calendar", href: "/calendar", icon: CalendarDays },
+  { title: "Tasks", href: "/tasks", icon: CheckSquare },
+];
+
+export default function DashboardSidebar() {
+  const pathname = usePathname();
+
   return (
-    <div className="h-screen lg:w-50 w-15 bg-slate-50 flex flex-col justify-between py-5 px-3">
-      <div className="flex items-center justify-center p-2">
-        <p className="hidden lg:block font-bold text-lg text-sky-950">LEARN STUDIO</p>
-      </div>
-      <div className="flex flex-col space-y-2">
-        <SidebarLink href="/" label="Home"><HomeIcon className="fill-current" /></SidebarLink>
-        <SidebarLink href="/calendar" label="Calender"><CalendarIcon className="fill-current" /></SidebarLink>
-        {/* <SidebarLink href="/tasks" label="Tasks"><TasksIcon /></SidebarLink> */}
-      </div>
-      <div>
-        <SidebarLink href="/settings" label="Settings"><SettingsIcon className="fill-current" /></SidebarLink>
-      </div>
-    </div>
+    <Sidebar variant="inset" collapsible="icon">
+      <SidebarHeader className="flex-row items-center justify-between">
+        <Link href="/" className="flex min-w-0 items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium text-sidebar-foreground">
+          <span className="inline-flex size-8 shrink-0 items-center justify-center rounded-md bg-sidebar-accent text-sidebar-accent-foreground">
+            SM
+          </span>
+          <span className="truncate group-data-[collapsible=icon]:hidden">Study Manager</span>
+        </Link>
+        <SidebarTrigger />
+      </SidebarHeader>
+
+      <SidebarSeparator />
+
+      <SidebarContent>
+        <div className="p-2">
+          <SidebarMenu>
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const isActive =
+                item.href === "/"
+                  ? pathname === "/"
+                  : pathname?.startsWith(item.href);
+
+              return (
+                <SidebarMenuItem key={item.href}>
+                  <SidebarMenuButton
+                    tooltip={item.title}
+                    isActive={!!isActive}
+                    render={<Link href={item.href} />}
+                    className={cn(isActive ? "" : "text-sidebar-foreground/80")}
+                  >
+                    <Icon className="size-4" />
+                    <span>{item.title}</span>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              );
+            })}
+          </SidebarMenu>
+        </div>
+      </SidebarContent>
+
+      <SidebarFooter>
+        <SidebarSeparator />
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              tooltip="Settings"
+              isActive={pathname?.startsWith("/settings")}
+              render={<Link href="/settings" />}
+            >
+              <Settings className="size-4" />
+              <span>Settings</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
+    </Sidebar>
   );
 }
