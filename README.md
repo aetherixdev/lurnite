@@ -1,6 +1,6 @@
-# 📚 Study Management Website
+# Lurnite
 
-A simple web-based study management platform to help students organize tasks, schedules, and study progress in one place.
+A web-based study management platform to help students organize tasks, schedules, and study progress in one place.
 
 > 🚧 **Status:** Work in progress
 
