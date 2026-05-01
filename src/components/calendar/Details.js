@@ -22,9 +22,9 @@ export default function CalendarDetails({
       setDate((prev) => prev ?? new Date(monthDate));
     }
   }, [monthDate]);
-  
+
   return (
-    <div className="flex-1 rounded-lg border border-slate-100 bg-slate-50 p-2 text-sm text-slate-700 dark:border-slate-700 dark:bg-neutral-900 dark:text-slate-100">
+    <div className="flex-1 rounded-lg border border-slate-100 bg-surface p-2 text-sm text-slate-700 dark:border-slate-700 dark:bg-neutral-900 dark:text-slate-100">
       {!isDateSelected && (<Calendar
         mode="single"
         captionLayout="dropdown"
@@ -40,7 +40,7 @@ export default function CalendarDetails({
       />)}
       <div>
         {isDateSelected && (
-          <NewEvent 
+          <NewEvent
             setIsDateSelected={setIsDateSelected}
             selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}

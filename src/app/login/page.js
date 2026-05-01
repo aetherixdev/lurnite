@@ -10,7 +10,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { ArrowRight, Eye, EyeOff, Lock, Mail } from "lucide-react";
+import { useTheme } from "next-themes";
+import { ArrowRight, Eye, EyeOff, Lock, Mail, Moon, Sun } from "lucide-react";
 // import Button from "../../components/Button";
 // import TextField from "@/components/TextField";
 
@@ -24,10 +25,14 @@ export default function Login() {
   const { user, loading } = useAuth();
   const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
+  const [isCreateAccount, setIsCreateAccount] = useState(false);
   const toggleVisibility = () => setIsVisible((prevState) => !prevState);
 
   useEffect(() => {
+    setMounted(true);
     if (loading) return;
     if (user) {
       router.replace("/");
@@ -45,8 +50,8 @@ export default function Login() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-screen bg-gray-100">
-        <p>Loading...</p>
+      <div className="flex items-center justify-center h-screen bg-background text-foreground">
+        <p className="text-sm text-muted-foreground">Loading...</p>
       </div>
     );
   }
@@ -58,7 +63,7 @@ export default function Login() {
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="flex flex-col gap-4 p-6 md:p-10">
-        <div className="flex justify-center gap-2 md:justify-start">
+        <div className="flex items-center justify-center gap-2 md:justify-start">
           <a href="#" aria-label="home" className="flex items-center gap-2">
             {/* <img
               src="/ai-logo-white.png"
@@ -79,92 +84,90 @@ export default function Login() {
         </div>
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-xs">
-          <div className="mx-auto w-full max-w-xs space-y-6">
-        <div className="space-y-2 text-center">
-          <h1 className="text-balance text-3xl font-semibold text-ink">Welcome back</h1>
-          <p className="text-pretty text-ink-soft">
-            Sign in to supercharge your learning!
-          </p>
-        </div>
-
-        <div className="space-y-5">
-          <Button variant="outline" className="w-full justify-center gap-2" onClick={handleGoogleLogin}>
-            <GoogleIcon className="h-4 w-4" />
-            Sign in with Google
-          </Button>
-
-          <div className="flex items-center gap-2">
-            <Separator className="flex-1" />
-            <span className="text-sm text-ink-soft">
-              or sign in with email
-            </span>
-            <Separator className="flex-1" />
-          </div>
-
-          <div className="space-y-6">
-            <div>
-              <Label htmlFor="email">Email</Label>
-              <div className="relative mt-2.5">
-                <Input
-                  id="email"
-                  className="peer ps-9"
-                  placeholder="ephraim@blocks.so"
-                  type="email"
-                />
-                <div className="text-ink-soft/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
-                  <Mail size={16} aria-hidden="true" />
-                </div>
+            <div className="mx-auto w-full max-w-xs space-y-6">
+              <div className="space-y-2 text-center">
+                <h1 className="text-balance text-3xl font-semibold text-foreground">Welcome back</h1>
+                <p className="text-pretty text-muted-foreground">
+                  Sign in to supercharge your learning!
+                </p>
               </div>
-            </div>
 
-            <div>
-              <div className="flex items-center justify-between">
-                <Label htmlFor="password">Password</Label>
-                <a href="#" className="text-sm text-ink-mid hover:underline">
-                  Forgot Password?
-                </a>
-              </div>
-              <div className="relative mt-2.5">
-                <Input
-                  id="password"
-                  className="ps-9 pe-9"
-                  placeholder="Enter your password"
-                  type={isVisible ? "text" : "password"}
-                />
-                <div className="text-ink-soft/80 pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
-                  <Lock size={16} aria-hidden="true" />
+              <div className="space-y-5">
+                <Button variant="outline" className="w-full justify-center gap-2" onClick={handleGoogleLogin}>
+                  <GoogleIcon className="h-4 w-4" />
+                  Sign in with Google
+                </Button>
+
+                <div className="flex items-center gap-2">
+                  <Separator className="flex-1" />
+                  <span className="text-sm text-muted-foreground">
+                    or sign in with email
+                  </span>
+                  <Separator className="flex-1" />
                 </div>
-                <button
-                  className="text-ink-soft/80 hover:text-foreground focus-visible:border-spark-lt focus-visible:ring-spark-lt/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
-                  type="button"
-                  onClick={toggleVisibility}
-                  aria-label={isVisible ? "Hide password" : "Show password"}
-                  aria-pressed={isVisible}
-                  aria-controls="password"
-                >
-                  {isVisible ? (
-                    <EyeOff size={16} aria-hidden="true" />
-                  ) : (
-                    <Eye size={16} aria-hidden="true" />
+
+                <div className="space-y-6">
+                  {!isCreateAccount && (
+                    <><div>
+                      <Label htmlFor="email">Email</Label>
+                      <div className="relative mt-2.5">
+                        <Input
+                          id="email"
+                          className="peer ps-9"
+                          placeholder="ephraim@blocks.so"
+                          type="email" />
+                        <div className="text-muted-foreground pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
+                          <Mail size={16} aria-hidden="true" />
+                        </div>
+                      </div>
+                    </div><div>
+                        <div className="flex items-center justify-between">
+                          <Label htmlFor="password">Password</Label>
+                          <a href="#" className="text-sm text-muted-foreground hover:underline">
+                            Forgot Password?
+                          </a>
+                        </div>
+                        <div className="relative mt-2.5">
+                          <Input
+                            id="password"
+                            className="ps-9 pe-9"
+                            placeholder="Enter your password"
+                            type={isVisible ? "text" : "password"} />
+                          <div className="text-muted-foreground pointer-events-none absolute inset-y-0 start-0 flex items-center justify-center ps-3 peer-disabled:opacity-50">
+                            <Lock size={16} aria-hidden="true" />
+                          </div>
+                          <button
+                            className="text-muted-foreground hover:text-foreground focus-visible:border-spark-lt focus-visible:ring-spark-lt/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
+                            type="button"
+                            onClick={toggleVisibility}
+                            aria-label={isVisible ? "Hide password" : "Show password"}
+                            aria-pressed={isVisible}
+                            aria-controls="password"
+                          >
+                            {isVisible ? (
+                              <EyeOff size={16} aria-hidden="true" />
+                            ) : (
+                              <Eye size={16} aria-hidden="true" />
+                            )}
+                          </button>
+                        </div>
+                      </div></>
                   )}
-                </button>
+                </div>
+
+                <Button className="w-full">
+                  Sign in
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+
+                <div className="text-center text-sm">
+                  {isCreateAccount ? "Already have an account?" : "No account?"}{" "}
+                  <button className="text-spark font-medium hover:underline cursor-pointer" onClick={() => setIsCreateAccount(!isCreateAccount)}>
+                    {isCreateAccount ? "Login" : "Create an account"}
+                  </button>
+                </div>
               </div>
             </div>
-          </div>
-
-          <Button className="w-full">
-            Sign in
-            <ArrowRight className="h-4 w-4" />
-          </Button>
-
-          <div className="text-center text-sm">
-            No account?{" "}
-            <a href="#" className="text-spark font-medium hover:underline">
-              Create an account
-            </a>
-          </div>
-        </div>
-      </div>
           </div>
         </div>
       </div>
@@ -180,6 +183,25 @@ export default function Login() {
             opacity: 0.4,
           }}
         />
+      </div>
+      <div className="fixed bottom-5 right-5 z-50">
+        <Button
+          type="button"
+          variant="outline"
+          size="icon"
+          className="h-10 w-10 rounded-full shadow-sm"
+          aria-label="Toggle theme"
+          onClick={() => {
+            const next = (mounted ? resolvedTheme : "light") === "dark" ? "light" : "dark";
+            setTheme(next);
+          }}
+        >
+          {(mounted ? resolvedTheme : "light") === "dark" ? (
+            <Sun className="h-4 w-4" />
+          ) : (
+            <Moon className="h-4 w-4" />
+          )}
+        </Button>
       </div>
     </div>
   );

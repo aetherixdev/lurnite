@@ -39,10 +39,10 @@ export const fetchUserEvents = async (userId) => {
     const querySnapshot = await getDocs(q);
     
     const typeColors = {
-      "Study Session": "#3b82f6",
-      "Assignment": "#f59e0b",
-      "Exam": "#ef4444",
-      "Custom Event": "#64748b"
+      "Study Session": "#5B4FD9",
+      "Assignment": "#FFD23F",
+      "Exam": "#FF6B9D",
+      "Custom Event": "#8886A0"
     };
 
     const events = [];
@@ -53,8 +53,8 @@ export const fetchUserEvents = async (userId) => {
       events.push({
         id: doc.id,
         ...data,
-        backgroundColor: typeColors[data.type] || "#3b82f6",
-        borderColor: typeColors[data.type] || "#3b82f6"
+        backgroundColor: typeColors[data.type] || "#5B4FD9",
+        borderColor: typeColors[data.type] || "#5B4FD9"
       });
     });
     return events;

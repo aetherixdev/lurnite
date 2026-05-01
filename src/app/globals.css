@@ -5,281 +5,266 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  /* Brand Primaries */
-  --color-spark: #FF6B35;
-  --color-spark-lt: #FF9A72;
-  --color-spark-bg: #FFF0EB;
+    /* Brand Primaries */
+    --color-spark: #FF6B35;
+    --color-spark-lt: #FF9A72;
+    --color-spark-bg: #FFF0EB;
 
-  --color-pulse: #5B4FD9;
-  --color-pulse-lt: #8B82E8;
-  --color-pulse-bg: #EFEDFF;
+    --color-pulse: #5B4FD9;
+    --color-pulse-lt: #8B82E8;
+    --color-pulse-bg: #EFEDFF;
 
-  /* Supporting */
-  --color-glow: #FFD23F;
-  --color-glow-bg: #FFFBE6;
+    /* Supporting */
+    --color-glow: #FFD23F;
+    --color-glow-bg: #FFFBE6;
 
-  --color-grow: #2EC4B6;
-  --color-grow-bg: #E6FAF8;
+    --color-grow: #2EC4B6;
+    --color-grow-bg: #E6FAF8;
 
-  --color-blush: #FF6B9D;
-  --color-blush-bg: #FFF0F6;
+    --color-blush: #FF6B9D;
+    --color-blush-bg: #FFF0F6;
 
-  /* Neutrals */
-  --color-ink: #1C1B33;
-  --color-ink-mid: #4A485E;
-  --color-ink-soft: #8886A0;
-  --color-surface: #F7F6FF;
-  --color-brand-border: rgba(91, 79, 217, 0.1);
-  
-  /*  */
-  /*  */
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --color-primary: oklch(50% 0.134 242.749);
-  --color-secondary: #F59E0B;
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+    /* Neutrals */
+    --color-ink: #1C1B33;
+    --color-ink-mid: #4A485E;
+    --color-ink-soft: #8886A0;
+    --color-surface: #F7F6FF;
+    --color-brand-border: rgba(91, 79, 217, 0.1);
+
+    /*  */
+    /*  */
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --font-sans: var(--font-sans);
+    --font-mono: var(--font-geist-mono);
+    --color-primary: var(--color-pulse);
+    --color-secondary: var(--color-glow);
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
 }
 
 body {
-  font-family: var(--font-rubik);
+    font-family: var(--font-rubik);
 }
 
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(58.8% 0.158 241.966);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.58 0.22 27);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+    --background: #FFFFFF;
+    --foreground: var(--color-ink);
+    --card: #FFFFFF;
+    --card-foreground: var(--color-ink);
+    --popover: #FFFFFF;
+    --popover-foreground: var(--color-ink);
+    --primary: var(--color-pulse);
+    --primary-foreground: #FFFFFF;
+    --secondary: var(--color-surface);
+    --secondary-foreground: var(--color-ink);
+    --muted: var(--color-surface);
+    --muted-foreground: var(--color-ink-mid);
+    --accent: var(--color-spark-bg);
+    --accent-foreground: var(--color-ink);
+    --destructive: var(--color-blush);
+    --border: rgba(91, 79, 217, 0.12);
+    --input: rgba(91, 79, 217, 0.12);
+    --ring: var(--color-pulse-lt);
+    --chart-1: var(--color-pulse);
+    --chart-2: var(--color-spark);
+    --chart-3: var(--color-glow);
+    --chart-4: var(--color-grow);
+    --chart-5: var(--color-blush);
+    --radius: 0.625rem;
+    --sidebar: var(--color-surface);
+    --sidebar-foreground: var(--color-ink);
+    --sidebar-primary: var(--color-pulse);
+    --sidebar-primary-foreground: #FFFFFF;
+    --sidebar-accent: #FFFFFF;
+    --sidebar-accent-foreground: var(--color-ink);
+    --sidebar-border: rgba(91, 79, 217, 0.12);
+    --sidebar-ring: var(--color-pulse-lt);
 
-  /* FullCalendar Custom Colors */
-  /* Borders & Backgrounds */
-  --fc-border-color: #e2e8f0;       /* Tailwind slate-200 */
-  --fc-page-bg-color: #ffffff;
-  --fc-neutral-bg-color: #f8fafc;   /* Tailwind slate-50 */
-  
-  /* Buttons (Apply your app's primary color) */
-  --fc-button-bg-color: #4f46e5;    /* Tailwind indigo-600 */
-  --fc-button-border-color: #4f46e5;
-  --fc-button-hover-bg-color: #4338ca;
-  --fc-button-active-bg-color: #3730a3;
-  
-  /* Events */
-  --fc-event-bg-color: #6366f1;
-  --fc-event-border-color: #6366f1;
-  --fc-today-bg-color: #eff6ff;     /* Tailwind blue-50 */
+    /* FullCalendar Custom Colors */
+    /* Borders & Backgrounds */
+    --fc-border-color: rgba(91, 79, 217, 0.12);
+    /* Tailwind slate-200 */
+    --fc-page-bg-color: #FFFFFF;
+    --fc-neutral-bg-color: var(--color-surface);
+    /* Tailwind slate-50 */
+
+    /* Buttons (Apply your app's primary color) */
+    --fc-button-bg-color: var(--color-pulse);
+    /* Tailwind indigo-600 */
+    --fc-button-border-color: var(--color-pulse);
+    --fc-button-hover-bg-color: var(--color-pulse-lt);
+    --fc-button-active-bg-color: var(--color-pulse);
+
+    /* Events */
+    --fc-event-bg-color: var(--color-pulse);
+    --fc-event-border-color: var(--color-pulse);
+    --fc-today-bg-color: var(--color-spark-bg);
+    /* Tailwind blue-50 */
 }
 
 .fc {
-  font-family: inherit !important;
-  overflow: hidden;
-  background-color: var(--fc-page-bg-color);
+    font-family: inherit !important;
+    overflow: hidden;
+    background-color: var(--fc-page-bg-color);
 }
 
 .fc-theme-standard .fc-scrollgrid,
 .fc-theme-standard .fc-scrollgrid-section,
 .fc-theme-standard .fc-scrollgrid-sync-table {
-  /* Remove container-level borders; keep only cell borders + .fc outline */
-  border: 0 !important;
+    /* Borderless FullCalendar container */
+    border: 0 !important;
 }
 
 .fc-theme-standard td,
 .fc-theme-standard th {
-  /* Ensure all internal grid lines use the same color/thickness */
-  border-color: var(--fc-border-color);
+    /* Ensure all internal grid lines use the same color/thickness */
+    border-color: var(--fc-border-color);
 }
 
-/* Avoid double borders by removing outermost cell borders;
-   rely on the rounded .fc outline for the outside edge. */
-.fc-theme-standard .fc-scrollgrid thead th {
-  /* Strip any header outer borders; rely on .fc outline instead */
-  border-top-width: 0;
-  border-bottom-width: 0;
-}
-
-.fc-theme-standard .fc-scrollgrid tbody tr:first-child td {
-  /* First row of the grid draws the separation line under the header */
-  border-top-width: 1px;
-}
-
-.fc-theme-standard .fc-scrollgrid tbody tr:last-child td {
-  border-bottom-width: 0;
-}
-
-.fc-theme-standard .fc-scrollgrid td:first-child,
-.fc-theme-standard .fc-scrollgrid th:first-child {
-  border-left-width: 0;
-}
-
-.fc-theme-standard .fc-scrollgrid td:last-child,
-.fc-theme-standard .fc-scrollgrid th:last-child {
-  border-right-width: 0;
-}
+/* Restore default outer cell borders (no edge stripping) */
 
 /* Subtle, slow today highlight when clicking "Today" */
 .calendar-today-soft-highlight .fc-theme-standard td.fc-day-today,
-.calendar-today-soft-highlight
-  .fc-theme-standard
-  .fc-timegrid-col.fc-day-today {
-  animation: fc-today-soft-pulse 0.9s ease-out;
+.calendar-today-soft-highlight .fc-theme-standard .fc-timegrid-col.fc-day-today {
+    animation: fc-today-soft-pulse 0.9s ease-out;
 }
 
 @keyframes fc-today-soft-pulse {
-  0% {
-    background-color: #dbeafe; /* slight bump from default today color */
-  }
-  100% {
-    background-color: var(--fc-today-bg-color);
-  }
+    0% {
+        background-color: color-mix(in srgb, var(--color-spark) 18%, #FFFFFF);
+        /* slight bump from default today color */
+    }
+
+    100% {
+        background-color: var(--fc-today-bg-color);
+    }
 }
 
 /* Navigation animations for month/week changes */
 .calendar-slide-next {
-  animation: fc-slide-next 0.22s ease-out;
+    animation: fc-slide-next 0.22s ease-out;
 }
 
 .calendar-slide-prev {
-  animation: fc-slide-prev 0.22s ease-out;
+    animation: fc-slide-prev 0.22s ease-out;
 }
 
 .calendar-fade {
-  animation: fc-fade 0.22s ease-out;
+    animation: fc-fade 0.22s ease-out;
 }
 
 @keyframes fc-slide-next {
-  0% {
-    opacity: 0;
-    transform: translateX(8px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
+    0% {
+        opacity: 0;
+        transform: translateX(8px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 @keyframes fc-slide-prev {
-  0% {
-    opacity: 0;
-    transform: translateX(-8px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(0);
-  }
+    0% {
+        opacity: 0;
+        transform: translateX(-8px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 @keyframes fc-fade {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.87 0.00 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.371 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+    --background: var(--color-ink);
+    --foreground: #FFFFFF;
+    /* Slightly darker cards in dark mode */
+    --card: color-mix(in srgb, var(--color-ink) 88%, #FFFFFF 12%);
+    --card-foreground: #FFFFFF;
+    --popover: var(--color-ink-mid);
+    --popover-foreground: #FFFFFF;
+    --primary: var(--color-pulse-lt);
+    --primary-foreground: var(--color-ink);
+    --secondary: rgba(255, 255, 255, 0.06);
+    --secondary-foreground: #FFFFFF;
+    --muted: rgba(255, 255, 255, 0.06);
+    --muted-foreground: rgba(255, 255, 255, 0.72);
+    --accent: rgba(255, 255, 255, 0.08);
+    --accent-foreground: #FFFFFF;
+    --destructive: var(--color-blush);
+    --border: rgba(255, 255, 255, 0.12);
+    --input: rgba(255, 255, 255, 0.14);
+    --ring: var(--color-pulse-lt);
+    --chart-1: var(--color-pulse);
+    --chart-2: var(--color-spark);
+    --chart-3: var(--color-glow);
+    --chart-4: var(--color-grow);
+    --chart-5: var(--color-blush);
+    --sidebar: var(--color-ink);
+    --sidebar-foreground: #FFFFFF;
+    --sidebar-primary: var(--color-pulse-lt);
+    --sidebar-primary-foreground: var(--color-ink);
+    --sidebar-accent: rgba(255, 255, 255, 0.08);
+    --sidebar-accent-foreground: #FFFFFF;
+    --sidebar-border: rgba(255, 255, 255, 0.12);
+    --sidebar-ring: var(--color-pulse-lt);
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  html {
-    @apply font-sans;
-  }
+    * {
+        @apply border-border outline-ring/50;
+    }
+
+    body {
+        @apply bg-background text-foreground;
+    }
+
+    html {
+        @apply font-sans;
+    }
 }

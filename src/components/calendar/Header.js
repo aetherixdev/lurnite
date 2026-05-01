@@ -28,7 +28,7 @@ export default function CalendarHeader({
 }) {
   return (
     <div className="flex items-center justify-between px-2 py-4 border-b">
-      <h2 className="text-2xl font-bold text-slate-800">{title}</h2>
+      <h2 className="text-2xl font-bold text-foreground">{title}</h2>
       <div className="flex items-center gap-2">
         <Button variant="outline" size="lg" onClick={goToday}>
           Today
@@ -45,10 +45,10 @@ export default function CalendarHeader({
             </SelectGroup>
           </SelectContent>
         </Select>
-        <div className="flex bg-sky-100 rounded-lg">
+        <div className="flex bg-spark rounded-lg">
           <Button
             variant="ghost"
-            className={`hover:bg-sky-200 cursor-pointer ${!canPrev ? "opacity-50 pointer-events-none" : ""}`}
+            className={`hover:bg-spark-lt cursor-pointer text-white hover:text-white ${!canPrev ? "opacity-50 pointer-events-none" : ""}`}
             size="icon"
             onClick={goPrev}
             disabled={!canPrev}
@@ -57,7 +57,7 @@ export default function CalendarHeader({
           </Button>
           <Button
             variant="ghost"
-            className={`hover:bg-sky-200 cursor-pointer ${!canNext ? "opacity-50 pointer-events-none" : ""}`}
+            className={`hover:bg-spark-lt cursor-pointer text-white hover:text-white ${!canNext ? "opacity-50 pointer-events-none" : ""}`}
             size="icon"
             onClick={goNext}
             disabled={!canNext}
@@ -65,25 +65,21 @@ export default function CalendarHeader({
             <ChevronRight size={18} />
           </Button>
         </div>
-        {onToggleDetails && (
-          <Button
-            type="button"
-            variant="outline"
-            size="icon"
-            className={`ml-1 transition-colors ${
-              isDetailsOpen
-                ? "bg-slate-100 text-slate-900 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-50 dark:hover:bg-slate-700"
-                : ""
-            }`}
-            onClick={onToggleDetails}
-          >
-            {isDetailsOpen ? (
-              <PanelRightOpen size={18} />
-            ) : (
-              <PanelRightClose size={18} />
-            )}
-          </Button>
-        )}
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon"
+          className={`ml-1 transition-colors hover:bg-muted/60 ${
+            isDetailsOpen ? "bg-muted text-foreground hover:bg-muted/80" : ""
+          }`}
+          onClick={onToggleDetails}
+        >
+          {isDetailsOpen ? (
+            <PanelRightOpen size={18} />
+          ) : (
+            <PanelRightClose size={18} />
+          )}
+        </Button>
       </div>
     </div>
   );

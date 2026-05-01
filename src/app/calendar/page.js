@@ -6,6 +6,7 @@ import interactionPlugin from "@fullcalendar/interaction";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from "@fullcalendar/list";
 import rrulePlugin from "@fullcalendar/rrule";
+import { useTheme } from "next-themes";
 import {
   PageWithSidebar,
   CalendarHeader,
@@ -31,6 +32,7 @@ export default function StudyCalendar({ initialEvents }) {
   const [navAnimation, setNavAnimation] = useState(null);
   const [canPrev, setCanPrev] = useState(true);
   const [canNext, setCanNext] = useState(true);
+  const { resolvedTheme } = useTheme();
 
   const dragBoundaryRef = useRef(null);
   const calendarAreaRef = useRef(null);
@@ -202,6 +204,22 @@ export default function StudyCalendar({ initialEvents }) {
     return () => clearTimeout(id);
   }, [isDetailsOpen]);
 
+  const isDark = resolvedTheme === "dark";
+  const fcThemeStyle = {
+    "--fc-page-bg-color": "hsl(var(--background))",
+    "--fc-neutral-bg-color": "hsl(var(--muted))",
+    "--fc-border-color": "hsl(var(--border))",
+    "--fc-today-bg-color": "hsl(var(--accent))",
+    "--fc-neutral-text-color": "hsl(var(--muted-foreground))",
+    "--fc-button-text-color": "hsl(var(--primary-foreground))",
+    "--fc-event-text-color": "hsl(var(--primary-foreground))",
+    ...(isDark
+      ? {
+          "--fc-now-indicator-color": "hsl(var(--ring))",
+        }
+      : {}),
+  };
+
   return (
     <PageWithSidebar>
       <div className="flex h-full select-none relative">
@@ -220,6 +238,7 @@ export default function StudyCalendar({ initialEvents }) {
           />
           <div
             ref={calendarAreaRef}
+            style={fcThemeStyle}
             className={`flex-1 overflow-y-auto relative ${
               isTodaySoftHighlight ? "calendar-today-soft-highlight" : ""
             } ${

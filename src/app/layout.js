@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono, Rubik } from "next/font/google";
 import "./globals.css";
 import { AuthGuard } from "../components/AuthGuard";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,11 +25,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${rubik.variable} antialiased h-screen`}
       >
-        <AuthGuard>{children}</AuthGuard>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <AuthGuard>{children}</AuthGuard>
+        </ThemeProvider>
       </body>
     </html>
   );

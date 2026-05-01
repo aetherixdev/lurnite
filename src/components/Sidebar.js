@@ -31,21 +31,24 @@ export default function DashboardSidebar() {
   const pathname = usePathname();
 
   return (
-    <Sidebar variant="inset" collapsible="icon">
-      <SidebarHeader className="flex-row items-center justify-between">
-        <Link href="/" className="flex min-w-0 items-center gap-2 rounded-md px-2 py-1.5 text-sm font-medium text-sidebar-foreground">
-          <span className="inline-flex size-8 shrink-0 items-center justify-center rounded-md bg-sidebar-accent text-sidebar-accent-foreground">
-            SM
+    <Sidebar variant="floating" collapsible="icon">
+      <SidebarHeader className="flex-row items-center justify-between group-data-[collapsible=icon]:justify-center">
+        <Link
+          href="/"
+          className="flex min-h-11 min-w-0 items-center gap-2.5 rounded-md px-2.5 py-2 text-[0.95rem] leading-5 font-medium text-sidebar-foreground transition-colors hover:bg-sidebar-accent active:bg-sidebar-accent group-data-[collapsible=icon]:hidden"
+        >
+          <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-md bg-sidebar-accent text-sidebar-accent-foreground">
+            L
           </span>
-          <span className="truncate group-data-[collapsible=icon]:hidden">Study Manager</span>
+          <span className="truncate group-data-[collapsible=icon]:hidden">Lurnite</span>
         </Link>
-        <SidebarTrigger />
+        <SidebarTrigger className="group-data-[collapsible=icon]:mx-auto" />
       </SidebarHeader>
 
       <SidebarSeparator />
 
       <SidebarContent>
-        <div className="p-2">
+        <div className="flex flex-1 flex-col justify-center p-2">
           <SidebarMenu>
             {navItems.map((item) => {
               const Icon = item.icon;
@@ -62,7 +65,7 @@ export default function DashboardSidebar() {
                     render={<Link href={item.href} />}
                     className={cn(isActive ? "" : "text-sidebar-foreground/80")}
                   >
-                    <Icon className="size-4" />
+                    <Icon className="size-5" />
                     <span>{item.title}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -81,7 +84,7 @@ export default function DashboardSidebar() {
               isActive={pathname?.startsWith("/settings")}
               render={<Link href="/settings" />}
             >
-              <Settings className="size-4" />
+              <Settings className="size-5" />
               <span>Settings</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
