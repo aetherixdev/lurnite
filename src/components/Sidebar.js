@@ -38,7 +38,7 @@ export default function DashboardSidebar() {
           className="flex min-h-11 min-w-0 items-center gap-2.5 rounded-md px-2.5 py-2 text-[0.95rem] leading-5 font-medium text-sidebar-foreground transition-colors hover:bg-sidebar-accent active:bg-sidebar-accent group-data-[collapsible=icon]:hidden"
         >
           <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-md bg-sidebar-accent text-sidebar-accent-foreground">
-            L
+            <img src="/favicon.svg" alt="Logo" width={24} height={24} />
           </span>
           <span className="truncate group-data-[collapsible=icon]:hidden">Lurnite</span>
         </Link>
@@ -48,7 +48,7 @@ export default function DashboardSidebar() {
       <SidebarSeparator />
 
       <SidebarContent>
-        <div className="flex flex-1 flex-col justify-center p-2">
+        <div className="flex flex-1 flex-col justify-center p-2 group-data-[collapsible=icon]:px-0">
           <SidebarMenu>
             {navItems.map((item) => {
               const Icon = item.icon;
@@ -75,7 +75,7 @@ export default function DashboardSidebar() {
         </div>
       </SidebarContent>
 
-      <SidebarFooter>
+      <SidebarFooter className="group-data-[collapsible=icon]:px-0">
         <SidebarSeparator />
         <SidebarMenu>
           <SidebarMenuItem>

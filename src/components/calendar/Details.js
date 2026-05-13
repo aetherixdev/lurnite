@@ -13,7 +13,8 @@ export default function CalendarDetails({
   setSelectedDate,
   selectedEvent,
   setSelectedEvent,
-  onEventAdded
+  onEventAdded,
+  onPreviewChange,
 }) {
   const [date, setDate] = useState(new Date());
 
@@ -41,12 +42,14 @@ export default function CalendarDetails({
       <div>
         {isDateSelected && (
           <NewEvent
+            key={selectedEvent?.id ?? (selectedDate instanceof Date ? selectedDate.toISOString() : "default")}
             setIsDateSelected={setIsDateSelected}
             selectedDate={selectedDate}
             setSelectedDate={setSelectedDate}
             selectedEvent={selectedEvent}
             setSelectedEvent={setSelectedEvent}
             onEventAdded={onEventAdded}
+            onPreviewChange={onPreviewChange}
           />
         )}
       </div>

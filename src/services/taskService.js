@@ -1,15 +1,4 @@
-import {
-  collection,
-  addDoc,
-  getDocs,
-  query,
-  where,
-  Timestamp,
-  doc,
-  updateDoc,
-  deleteDoc,
-  orderBy,
-} from "firebase/firestore";
+import { collection, addDoc, getDocs, query, where, Timestamp, doc, updateDoc, deleteDoc, orderBy, writeBatch } from "firebase/firestore";
 import { db } from "../config";
 
 export const addTask = async (userId, taskData) => {
@@ -22,7 +11,7 @@ export const addTask = async (userId, taskData) => {
 
     dataToSave.userId = userId;
     dataToSave.completed = !!dataToSave.completed;
-    dataToSave.createdAt = Timestamp.now();
+    dataToSave.order = Date.now();
 
     const docRef = await addDoc(tasksRef, dataToSave);
     return { id: docRef.id, ...dataToSave };
@@ -36,7 +25,7 @@ export const fetchUserTasks = async (userId) => {
   if (!userId) return [];
   try {
     const tasksRef = collection(db, "tasks");
-    const q = query(tasksRef, where("userId", "==", userId), orderBy("createdAt", "desc"));
+    const q = query(tasksRef, where("userId", "==", userId), orderBy("order", "asc"));
     const querySnapshot = await getDocs(q);
     const tasks = [];
     querySnapshot.forEach((d) => tasks.push({ id: d.id, ...d.data() }));
@@ -69,6 +58,20 @@ export const deleteTask = async (taskId) => {
     return taskId;
   } catch (error) {
     console.error("Error deleting task:", error);
+    throw error;
+  }
+};
+
+export const updateTasksOrder = async (orderedTasks) => {
+  try {
+    const batch = writeBatch(db);
+    orderedTasks.forEach(({ id, order }) => {
+      const taskRef = doc(db, "tasks", id);
+      batch.update(taskRef, { order });
+    });
+    await batch.commit();
+  } catch (error) {
+    console.error("Error updating tasks order:", error);
     throw error;
   }
 };

@@ -19,6 +19,7 @@ export default function PopupManager({
   dragBoundaryRef,
   calendarAreaRef,
   onEventAdded,
+  onPreviewChange,
 }) {
   // Re-anchor popup when sidebar collapses while a date is selected
   useEffect(() => {
@@ -74,6 +75,7 @@ export default function PopupManager({
 
   return (
     <EventPopup
+      key={selectedEvent?.id ?? (selectedDate instanceof Date ? selectedDate.toISOString() : "default")}
       dragBoundaryRef={dragBoundaryRef}
       popupPosition={popupPosition}
       setIsModalOpen={setIsModalOpen}
@@ -82,6 +84,7 @@ export default function PopupManager({
       selectedEvent={selectedEvent}
       setSelectedEvent={setSelectedEvent}
       onEventAdded={onEventAdded}
+      onPreviewChange={onPreviewChange}
     />
   );
 }

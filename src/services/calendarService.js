@@ -1,6 +1,81 @@
 import { collection, addDoc, getDocs, query, where, Timestamp, doc, updateDoc, deleteDoc } from "firebase/firestore";
 import { db } from "../config";
 
+// ─── Offline pending-event queue ────────────────────────────────────────────
+
+const PENDING_KEY = "study_manager_pending_events";
+
+const readQueue = () => {
+  if (typeof window === "undefined") return [];
+  try { return JSON.parse(localStorage.getItem(PENDING_KEY) || "[]"); }
+  catch { return []; }
+};
+
+const writeQueue = (q) => {
+  if (typeof window === "undefined") return;
+  localStorage.setItem(PENDING_KEY, JSON.stringify(q));
+};
+
+export const queuePendingEvent = (sessionId, type, userId, eventData, eventId = null) => {
+  const queue = readQueue();
+  const idx = queue.findIndex((e) => e.sessionId === sessionId);
+  const entry = { sessionId, type, userId, eventId, eventData, ts: Date.now() };
+  if (idx >= 0) queue[idx] = entry;
+  else queue.push(entry);
+  writeQueue(queue);
+};
+
+export const dequeuePendingEvent = (sessionId) => {
+  writeQueue(readQueue().filter((e) => e.sessionId !== sessionId));
+};
+
+export const flushPendingEvents = async (userId) => {
+  const queue = readQueue().filter((e) => e.userId === userId);
+  if (queue.length === 0) return false;
+  let anyFlushed = false;
+  for (const entry of queue) {
+    try {
+      if (entry.type === "create") {
+        await addEvent(userId, entry.eventData);
+      } else if (entry.type === "update" && entry.eventId) {
+        await updateEvent(entry.eventId, entry.eventData);
+      }
+      dequeuePendingEvent(entry.sessionId);
+      anyFlushed = true;
+    } catch {
+      // still offline — leave it for next flush
+    }
+  }
+  return anyFlushed;
+};
+
+export const TYPE_COLORS = {
+  "Study Session": "#5B4FD9",
+  "Assignment":    "#FFD23F",
+  "Exam":          "#FF6B9D",
+  "Custom Event":  "#8886A0",
+};
+
+// Returns pending-create localStorage entries as FullCalendar event objects
+export const getPendingCalendarEvents = (userId) =>
+  readQueue()
+    .filter((e) => e.userId === userId && e.type === "create")
+    .map((e) => ({
+      id: `__pending_${e.sessionId}`,
+      title: e.eventData.title,
+      start: e.eventData.start,
+      end: e.eventData.end,
+      allDay: e.eventData.allDay,
+      backgroundColor: TYPE_COLORS[e.eventData.type] || "#5B4FD9",
+      borderColor:     TYPE_COLORS[e.eventData.type] || "#5B4FD9",
+      extendedProps: {
+        description:  e.eventData.description,
+        type:         e.eventData.type,
+        repeatOption: e.eventData.repeatOption,
+        pending:      true,
+      },
+    }));
+
 /**
  * Add a new event to Firestore
  * @param {string} userId - The ID of the user creating the event
@@ -38,23 +113,14 @@ export const fetchUserEvents = async (userId) => {
     const q = query(eventsRef, where("userId", "==", userId));
     const querySnapshot = await getDocs(q);
     
-    const typeColors = {
-      "Study Session": "#5B4FD9",
-      "Assignment": "#FFD23F",
-      "Exam": "#FF6B9D",
-      "Custom Event": "#8886A0"
-    };
-
     const events = [];
     querySnapshot.forEach((doc) => {
-      // Need to format timestamps back to what FullCalendar or our app expects
-      // E.g. date strings
       const data = doc.data();
       events.push({
         id: doc.id,
         ...data,
-        backgroundColor: typeColors[data.type] || "#5B4FD9",
-        borderColor: typeColors[data.type] || "#5B4FD9"
+        backgroundColor: TYPE_COLORS[data.type] || "#5B4FD9",
+        borderColor:     TYPE_COLORS[data.type] || "#5B4FD9",
       });
     });
     return events;

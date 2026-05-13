@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { NewEvent } from '@/components'
 
-export default function EventPopup({ dragBoundaryRef, popupPosition, setIsModalOpen, selectedDate, setSelectedDate, selectedEvent, setSelectedEvent, onEventAdded }) {
+export default function EventPopup({ dragBoundaryRef, popupPosition, setIsModalOpen, selectedDate, setSelectedDate, selectedEvent, setSelectedEvent, onEventAdded, onPreviewChange }) {
   return (
     <div
       ref={dragBoundaryRef}
@@ -34,6 +34,7 @@ export default function EventPopup({ dragBoundaryRef, popupPosition, setIsModalO
             selectedEvent={selectedEvent}
             setSelectedEvent={setSelectedEvent}
             onEventAdded={onEventAdded}
+            onPreviewChange={onPreviewChange}
           />
         </div>
       </motion.div>

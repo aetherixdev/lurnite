@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { AuthProvider, useAuth } from "../contexts/AuthContext";
+import AppShell from "./AppShell";
 
 function RedirectGuard({ children }) {
   const { user, loading } = useAuth();
@@ -28,7 +29,7 @@ function RedirectGuard({ children }) {
     return null;
   }
 
-  return children;
+  return <AppShell>{children}</AppShell>;
 }
 
 export function AuthGuard({ children }) {

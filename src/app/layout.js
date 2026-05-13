@@ -19,8 +19,11 @@ const rubik = Rubik({
 });
 
 export const metadata = {
-  title: "Study Manager",
+  title: "Lurnite",
   description: "The one stop destination for all your study needs.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({ children }) {

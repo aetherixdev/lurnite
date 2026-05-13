@@ -15,7 +15,7 @@ import {
 import { usePopup } from "@/hooks/usePopup";
 import { PopupManager } from "@/components";
 import { useAuth } from "@/contexts/AuthContext";
-import { fetchUserEvents } from "@/services/calendarService";
+import { fetchUserEvents, flushPendingEvents, getPendingCalendarEvents } from "@/services/calendarService";
 
 const RANGE_START_MONTH = new Date(2000, 0, 1);
 const RANGE_END_MONTH = new Date(2100, 11, 1);
@@ -45,19 +45,62 @@ export default function StudyCalendar({ initialEvents }) {
 
   const { user } = useAuth();
   const [events, setEvents] = useState(initialEvents || []);
+  const [previewEvent, setPreviewEvent] = useState(null);
 
   const loadEvents = async () => {
     if (user?.uid) {
       try {
         const fetchedEvents = await fetchUserEvents(user.uid);
-        setEvents(fetchedEvents);
+        const localEvents = getPendingCalendarEvents(user.uid);
+        setEvents([...fetchedEvents, ...localEvents]);
       } catch (err) {
         console.error("Failed to fetch events:", err);
       }
     }
   };
 
+  // Atomically refreshes events and clears the preview in one React 18 batch —
+  // no visual gap between the ghost disappearing and the real event appearing.
+  const handleEventSaved = async () => {
+    if (user?.uid) {
+      try {
+        const fetchedEvents = await fetchUserEvents(user.uid);
+        const localEvents = getPendingCalendarEvents(user.uid);
+        setEvents([...fetchedEvents, ...localEvents]);
+        setPreviewEvent(null);
+      } catch (err) {
+        console.error("Failed to fetch events:", err);
+      }
+    }
+  };
+
+  const handlePreviewChange = (data) => {
+    if (!data || !data.title) {
+      setPreviewEvent(null);
+      return;
+    }
+    const event = {
+      id: "__preview__",
+      title: data.title,
+      allDay: data.allDay,
+      classNames: ["fc-event-preview"],
+      backgroundColor: data.color || "#5B4FD9",
+      borderColor: data.color || "#5B4FD9",
+    };
+    if (data.rrule) {
+      event.rrule = data.rrule;
+    } else {
+      event.start = data.start;
+      event.end = data.end;
+    }
+    setPreviewEvent(event);
+  };
+
   useEffect(() => {
+    if (!user?.uid) return;
+    flushPendingEvents(user.uid).then((anyFlushed) => {
+      if (anyFlushed) handleEventSaved();
+    });
     loadEvents();
   }, [user]);
 
@@ -257,7 +300,11 @@ export default function StudyCalendar({ initialEvents }) {
             <FullCalendar
               plugins={[dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin, rrulePlugin]}
               initialView={mapLabelToViewId(view)}
-              events={events}
+              events={
+                previewEvent
+                  ? [...events.filter((e) => e.id !== selectedEvent?.id), previewEvent]
+                  : events
+              }
               dateClick={(arg) => handleDateClick(arg, isDetailsOpen)}
               eventClick={(arg) => handleEventClick(arg, isDetailsOpen)}
               eventClassNames={(arg) => {
@@ -291,7 +338,8 @@ export default function StudyCalendar({ initialEvents }) {
               setSelectedEvent={setSelectedEvent}
               dragBoundaryRef={dragBoundaryRef}
               calendarAreaRef={calendarAreaRef}
-              onEventAdded={loadEvents}
+              onEventAdded={handleEventSaved}
+              onPreviewChange={handlePreviewChange}
             />
           </div>
         </div>
@@ -335,7 +383,8 @@ export default function StudyCalendar({ initialEvents }) {
                   triggerNavAnimation("fade");
                 }
               }}
-              onEventAdded={loadEvents}
+              onEventAdded={handleEventSaved}
+              onPreviewChange={handlePreviewChange}
             />
           )}
         </div>
